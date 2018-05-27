@@ -6,12 +6,13 @@
 
 import random
 from copy import copy
+from time import clock
 
 
 class SortLib:
 
     def directInsertSort(self, seq):
-        """ 直接插入排序 """
+        """ InsertSort  """
         size = len(seq)
         for i in range(1, size):
             tmp, j = seq[i], i
@@ -30,18 +31,18 @@ class SortLib:
                 if l[k] > l[j]:
                     k = j
                 j += 1
-            l[i], l[k] = l[k], l[i]
+            l[i], l[k] = l[k], l[i]  # swap via tuple
         # print(l)
         return l
 
-    def bubbleSort(self, seq):
+    def bubbleSort(self, l):
         """冒泡排序"""
-        size = len(seq)
+        size = len(l)
         for i in range(1, size):
             for j in range(0, size - i):
-                if seq[j + 1] < seq[j]:
-                    seq[j + 1], seq[j] = seq[j], seq[j + 1]
-        return seq
+                if l[j + 1] < l[j]:
+                    l[j + 1], l[j] = l[j], l[j + 1]
+        return l
 
     def _divide(self, seq, low, high):
         """快速排序划分函数"""
@@ -61,7 +62,7 @@ class SortLib:
         return low
 
     def _quickSort(self, seq, low, high):
-        """快速排序辅助函数"""
+        """quicksort assist"""
         if low >= high:
             return
         mid = self._divide(seq, low, high)
@@ -69,12 +70,13 @@ class SortLib:
         self._quickSort(seq, mid + 1, high)
 
     def quickSort(self, seq):
-        """快速排序包裹函数"""
+        """quicksort"""
         size = len(seq)
         self._quickSort(seq, 0, size - 1)
         return seq
 
     def merge(self, seq, left, mid, right):
+        '''merge sort'''
         tmp = []
         i, j = left, mid
         while i < mid and j <= right:
@@ -102,15 +104,14 @@ class SortLib:
 
 
 if __name__ == '__main__':
-    from time import clock
     S = SortLib()
     s = []
     for i in range(0, 100):
-        s.append(random.randint(1, 50))
-    print(s)
+        s.append(random.randint(1, 100))
+    print("初始无序队列", s)
     print("\n")
     print("直接选择排序结果：")
-    print(S.directSelectSort(copy(s)))
+    print(S.selectSort(copy(s)))
     print("直接插入排序结果：")
     print(S.directInsertSort(copy(s)))
     print("冒泡排序结果：")

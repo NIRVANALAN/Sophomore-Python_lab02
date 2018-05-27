@@ -15,10 +15,30 @@ class SortLib:
         """ InsertSort  """
         size = len(seq)
         for i in range(1, size):
-            tmp, j = seq[i], i
-            while j > 0 and tmp < seq[j - 1]:
-                seq[j], j = seq[j - 1], j - 1
-            seq[j] = tmp
+            tmp, j = seq[i], i - 1
+            while j >= 0 and tmp < seq[j]:
+                seq[j + 1], j = seq[j], j - 1
+            seq[j + 1] = tmp
+        return seq
+
+    def InsertionSortdichotomy(self, seq):
+        '''locate with dichotomy search'''
+        size = len(seq)
+        for i in range(1, size):
+            get = seq[i]
+            left = 0
+            right = i 
+            while left < right:
+                mid = (int)((left + right) / 2)
+                if seq[mid] > get:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            j = i - 1
+            while j >= left:
+                seq[j + 1] = seq[j]
+                j -= 1
+            seq[left] = get
         return seq
 
     def selectSort(self, l):
@@ -114,6 +134,8 @@ if __name__ == '__main__':
     print(S.selectSort(copy(s)))
     print("直接插入排序结果：")
     print(S.directInsertSort(copy(s)))
+    print("二分插入排序结果")
+    print(S.InsertionSortdichotomy(copy(s)))
     print("冒泡排序结果：")
     start = clock()
     print(S.bubbleSort(copy(s)))

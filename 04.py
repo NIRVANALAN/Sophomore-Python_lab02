@@ -118,7 +118,7 @@ class SortLib:
             return
         else:
             mid = (left + right) / 2
-            self._mergeSort(seq, left, mid)
+            self._mergeSort(seq, left, mid)  # recursive
             self._mergeSort(seq, mid + 1, right)
             self.merge(seq, left, mid + 1, right)
 
@@ -145,4 +145,4 @@ if __name__ == '__main__':
     start = clock()
     print(S.quickSort(copy(s)))
     finish = clock()
-    print(finish - start)
+    print('finished in:', finish - start)
